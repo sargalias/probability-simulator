@@ -3,6 +3,8 @@ package probabilitySimulator.rollers;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+import java.util.List;
+import java.util.ArrayList;
 
 class VariableDiceTest {
 
@@ -16,7 +18,11 @@ class VariableDiceTest {
     public void correctNumValues1to100() {
         for (int i=1; i<=100; i++) {
             VariableDice dice = new VariableDice(i);
-            assertEquals(i, dice.numValues(), "Dice should have " + i + " sides but has " + dice.numValues() + " sides.");
+            List<Integer> expected = new ArrayList<Integer>();
+            for (int j=1; j<=i; j++) {
+                expected.add(j);
+            }
+            assertEquals(expected, dice.possibleValues(), "Dice possible values should be " + expected + " but was " + dice.possibleValues());
         }
     }
 

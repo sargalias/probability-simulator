@@ -2,6 +2,9 @@ package probabilitySimulator.rollers;
 
 import probabilitySimulator.utility.DiceRoller;
 
+import java.util.List;
+import java.util.ArrayList;
+
 public class VariableDice implements Roller {
     private int numValues;
 
@@ -16,7 +19,11 @@ public class VariableDice implements Roller {
         return DiceRoller.roll(numValues);
     }
 
-    public int numValues() {
-        return numValues;
+    public List<Integer> possibleValues() {
+        List<Integer> possibleValues = new ArrayList<Integer>();
+        for (int i=1; i<=numValues; i++) {
+            possibleValues.add(i);
+        }
+        return possibleValues;
     }
 }
