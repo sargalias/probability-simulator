@@ -15,7 +15,7 @@ class VariableDiceTest {
     }
 
     @Test
-    public void correctNumValues1to100() {
+    void correctNumValues1to100() {
         for (int i=1; i<=100; i++) {
             VariableDice dice = new VariableDice(i);
             List<Integer> expected = new ArrayList<Integer>();
