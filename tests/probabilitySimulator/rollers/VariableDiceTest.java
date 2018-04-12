@@ -22,7 +22,7 @@ class VariableDiceTest {
             for (int j=1; j<=i; j++) {
                 expected.add(j);
             }
-            assertEquals(expected, dice.possibleValues(), "Dice possible values should be " + expected + " but was " + dice.possibleValues());
+            assertEquals(expected, dice.possibleValues(), "Dice possible Values should be " + expected + " but was " + dice.possibleValues());
         }
     }
 

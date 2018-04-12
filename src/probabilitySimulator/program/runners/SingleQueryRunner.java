@@ -1,4 +1,4 @@
-package probabilitySimulator.runners;
+package probabilitySimulator.program.runners;
 
 import probabilitySimulator.queries.*;
 import java.util.Map;
@@ -20,19 +20,19 @@ public class SingleQueryRunner {
         this(1000000, query);
     }
 
-    public Map<String, Integer> run() {
+    public Map<Boolean, Integer> run() {
         int pass = 0;
         int fail = 0;
-        int total = 0;
         for (int i=0; i<runTimes; i++) {
             if (query.run()) {
                 pass++;
             } else {
                 fail++;
             }
-            total++;
         }
-        Map<String, Integer> results = new HashMap<String, Integer>();
+        Map<Boolean, Integer> results = new HashMap<Boolean, Integer>();
+        results.put(true, pass);
+        results.put(false, fail);
         return results;
     }
 

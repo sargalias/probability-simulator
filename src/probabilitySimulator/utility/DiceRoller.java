@@ -7,7 +7,7 @@ public class DiceRoller {
 
     public static int roll(int numValues) throws IllegalArgumentException {
         if (numValues <= 0) {
-            throw new IllegalArgumentException("number of possible values must be one or more");
+            throw new IllegalArgumentException("number of possible Values must be one or more");
         }
         return random.nextInt(numValues);
     }

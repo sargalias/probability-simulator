@@ -1,4 +1,4 @@
-package probabilitySimulator.runners;
+package probabilitySimulator.program.runners;
 
 import probabilitySimulator.rollers.*;
 import probabilitySimulator.queries.*;
@@ -23,50 +23,6 @@ class SingleQueryRunnerTest {
         return new SingleQueryRunner(runTimes, svq);
     }
     // Helper functions end ---------------------
-
-
-    // run tests start -----------------
-    @Test
-    void run_returns_map_with_keys_pass_fail_total() {
-        SingleQueryRunner sqr = single_value_query_variable_dice_setup_no_runTimes(-1, 6);
-        Map<String, Integer> actual = sqr.run();
-        assertTrue(actual.containsKey("pass"));
-        assertTrue(actual.containsKey("fail"));
-        assertTrue(actual.containsKey("total"));
-        assertTrue(actual.size() == 3);
-    }
-
-    private void pass_fail_correct_proportions_(SingleQueryRunner sqr, int pass, int total, int delta) {
-        Map<String, Integer> actual = sqr.run();
-        Map<String, Integer> expected = new HashMap<String, Integer>();
-        assertEquals(pass, (int) actual.get("pass"), delta);
-        assertEquals(total-pass, (int) actual.get("fail"), delta);
-        assertEquals(total, (int) actual.get("total"));
-    }
-
-    @Test
-    void fail_total_1000000_pass_0_with_query_negative_1_variable_dice_roller() {
-        SingleQueryRunner sqr = single_value_query_variable_dice_setup_no_runTimes(-1, 6);
-        pass_fail_correct_proportions_(sqr, 0, 1000000, 0);
-    }
-
-    @Test
-    void pass_total_1000000_fail_0_with_query_0_variable_dice_roller_1() {
-        SingleQueryRunner sqr = single_value_query_variable_dice_setup_no_runTimes(0, 1);
-        pass_fail_correct_proportions_(sqr, 1000000, 1000000, 0);
-    }
-
-    @Test
-    void pass_roughly_half_with_corresponding_query_and_rollers() {
-        SingleQueryRunner sqr = single_value_query_variable_dice_setup_no_runTimes(1, 2);
-        pass_fail_correct_proportions_(sqr, 500000, 1000000, 100000);
-    }
-
-    @Test
-    void pass_roughly_third_with_corresponding_query_and_rollers() {
-        SingleQueryRunner sqr = single_value_query_variable_dice_setup_no_runTimes(2, 3);
-        pass_fail_correct_proportions_(sqr, 333333, 1000000, 100000);
-    }
 
 
     // RUNTIMES TESTS ---------------------
@@ -100,8 +56,8 @@ class SingleQueryRunnerTest {
 
     private void run_totals_correspond_with_constructor_runTimes(int runTimes) {
         SingleQueryRunner sqr = single_value_query_variable_dice_setup(runTimes, 0, 1);
-        Map<String, Integer> actual = sqr.run();
-        assertEquals(runTimes, (int) actual.get("total"));
+        Map<Boolean, Integer> actual = sqr.run();
+        assertEquals(runTimes, (int) actual.get(true) + actual.get(false));
     }
 
     @Test
@@ -118,4 +74,57 @@ class SingleQueryRunnerTest {
     void run_total_1500_with_constructor_1500() {
         run_totals_correspond_with_constructor_runTimes(1500);
     }
+    // RUNTIMES TESTS END ----------------
+
+
+
+    // run tests start -----------------
+    @Test
+    void run_returns_map_with_keys_pass_fail_total() {
+        SingleQueryRunner sqr = single_value_query_variable_dice_setup_no_runTimes(-1, 6);
+        Map<Boolean, Integer> actual = sqr.run();
+        assertTrue(actual.containsKey(true));
+        assertTrue(actual.containsKey(false));
+        assertTrue(actual.size() == 2);
+    }
+
+    private void pass_fail_correct_proportions_(SingleQueryRunner sqr, int pass, int total, int delta) {
+        Map<Boolean, Integer> actual = sqr.run();
+        assertEquals(pass, (int) actual.get(true), delta);
+        assertEquals(total-pass, (int) actual.get(false), delta);
+        assertEquals(total, (int) actual.get(true) + actual.get(false));
+    }
+
+    private void pass_fail_correct_proportions_(SingleQueryRunner sqr, int pass, int total) {
+        Map<Boolean, Integer> actual = sqr.run();
+        assertEquals(pass, (int) actual.get(true));
+        assertEquals(total-pass, (int) actual.get(false));
+        assertEquals(total, (int) actual.get(true) + actual.get(false));
+    }
+
+    @Test
+    void fail_total_1000000_pass_0_with_query_negative_1_variable_dice_roller() {
+        SingleQueryRunner sqr = single_value_query_variable_dice_setup_no_runTimes(-1, 6);
+        pass_fail_correct_proportions_(sqr, 0, 1000000);
+    }
+
+    @Test
+    void pass_total_1000000_fail_0_with_query_0_variable_dice_roller_1() {
+        SingleQueryRunner sqr = single_value_query_variable_dice_setup_no_runTimes(0, 1);
+        pass_fail_correct_proportions_(sqr, 1000000, 1000000);
+    }
+
+    @Test
+    void pass_roughly_half_with_corresponding_query_and_rollers() {
+        SingleQueryRunner sqr = single_value_query_variable_dice_setup_no_runTimes(1, 2);
+        pass_fail_correct_proportions_(sqr, 500000, 1000000, 100000);
+    }
+
+    @Test
+    void pass_roughly_third_with_corresponding_query_and_rollers() {
+        SingleQueryRunner sqr = single_value_query_variable_dice_setup_no_runTimes(2, 3);
+        pass_fail_correct_proportions_(sqr, 333333, 1000000, 100000);
+    }
+    // Run tests end -----------
+
 }

@@ -1,8 +1,6 @@
-package probabilitySimulator.runners;
+package probabilitySimulator.program.runners;
 
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class SimpleRunnerTest {
 
