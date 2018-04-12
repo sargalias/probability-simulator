@@ -1,5 +1,8 @@
 package probabilitySimulator.program.runners;
 
-public interface Runner {
+import java.util.Map;
 
+public interface Runner {
+    Map<Boolean, Integer> run();
+    int runTimes();
 }

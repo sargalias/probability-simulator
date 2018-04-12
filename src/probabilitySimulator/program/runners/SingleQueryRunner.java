@@ -4,7 +4,7 @@ import probabilitySimulator.queries.*;
 import java.util.Map;
 import java.util.HashMap;
 
-public class SingleQueryRunner {
+public class SingleQueryRunner implements Runner {
     private int runTimes;
     private Query query;
 
@@ -20,6 +20,7 @@ public class SingleQueryRunner {
         this(1000000, query);
     }
 
+    @Override
     public Map<Boolean, Integer> run() {
         int pass = 0;
         int fail = 0;
@@ -36,6 +37,7 @@ public class SingleQueryRunner {
         return results;
     }
 
+    @Override
     public int runTimes() {
         return runTimes;
     }
