@@ -12,13 +12,13 @@ class SingleQueryRunnerTest {
 
     // Helper functions start ---------------------
     private SingleQueryRunner single_value_query_variable_dice_setup_no_runTimes(int queryPassVal, int numSides) {
-        Roller vd = new VariableDice(numSides);
+        VariableDice vd = new VariableDice(numSides);
         Query svq = new SingleValueQuery(queryPassVal, vd);
         return new SingleQueryRunner(svq);
     }
 
     private SingleQueryRunner single_value_query_variable_dice_setup(int runTimes, int queryPassVal, int numSides) {
-        Roller vd = new VariableDice(numSides);
+        VariableDice vd = new VariableDice(numSides);
         Query svq = new SingleValueQuery(queryPassVal, vd);
         return new SingleQueryRunner(runTimes, svq);
     }
