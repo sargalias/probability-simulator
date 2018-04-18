@@ -8,11 +8,11 @@ import java.util.HashMap;
 
 class SimpleStatisticsTest {
 
-    public String correctString(String i1, String i2, String i3, String i4) {
-        return "Pass: " + i1 + "\n" +
-                "Fail: " + i2 + "\n" +
-                "Total rolls: " + i3 + "\n" +
-                "Success chance: " + i4 + "%";
+    public String correctString(String pass, String fail, String total, String chanceStr) {
+        return "Passed: " + pass + "\n" +
+                "Failed: " + fail + "\n" +
+                "Total: " + total + "\n" +
+                "Success percentage: " + chanceStr + "%";
     }
 
     @Test

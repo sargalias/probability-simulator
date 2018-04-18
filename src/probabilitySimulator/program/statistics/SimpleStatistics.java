@@ -24,10 +24,10 @@ public class SimpleStatistics implements Statistics {
     }
 
     private String buildString(int pass, int fail, int total, String chanceStr) {
-        return "Pass: " + pass + "\n" +
-                "Fail: " + fail + "\n" +
-                "Total rolls: " + total + "\n"+
-                "Success chance: " + chanceStr + "%";
+        return "Passed: " + pass + "\n" +
+                "Failed: " + fail + "\n" +
+                "Total: " + total + "\n"+
+                "Success percentage: " + chanceStr + "%";
     }
 
     @Override
