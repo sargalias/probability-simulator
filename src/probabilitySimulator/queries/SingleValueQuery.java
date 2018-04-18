@@ -20,6 +20,16 @@ public class SingleValueQuery implements Query {
     }
 
     @Override
+    public String getInfo() {
+        return "Single Value Query: Passes with a single value of " + this.passValue;
+    }
+
+    @Override
+    public String getAllInfo() {
+        return "Single Value Query: Passes with a single value of " + this.passValue + "\n" +
+                "Roller: " + this.roller.getInfo();
+    }
+
     public List<Integer> passValues() {
         List<Integer> passValues = new ArrayList<Integer>();
         passValues.add(this.passValue);

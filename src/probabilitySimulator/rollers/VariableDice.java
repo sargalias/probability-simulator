@@ -17,8 +17,14 @@ public class VariableDice implements Roller {
         this.numSides = numSides;
     }
 
+    @Override
     public int roll() {
         return random.nextInt(numSides);
+    }
+
+    @Override
+    public String getInfo() {
+        return "Rolls range from 0 to " + (numSides-1);
     }
 
     public List<Integer> possibleValues() {

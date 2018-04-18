@@ -17,20 +17,20 @@ class SingleValueQueryTest {
 
     @Test
     void passValuesIsList() {
-        Query svq = new SingleValueQuery(5, new VariableDice(6));
+        SingleValueQuery svq = new SingleValueQuery(5, new VariableDice(6));
         assertTrue(svq.passValues() instanceof List);
     }
 
     @Test
     void passValuesIsSingleValueList() {
-        Query svq = new SingleValueQuery(5, new VariableDice(6));
+        SingleValueQuery svq = new SingleValueQuery(5, new VariableDice(6));
         assertEquals(1, svq.passValues().size());
     }
 
     @Test
     void passValuesSameAsConstructorParameter() {
         for (int i=0; i<1000; i++) {
-            Query svq = new SingleValueQuery(i, new VariableDice(6));
+            SingleValueQuery svq = new SingleValueQuery(i, new VariableDice(6));
             assertEquals(i, (int) svq.passValues().get(0));
         }
     }
@@ -117,6 +117,26 @@ class SingleValueQueryTest {
                 }
             }
             assertEquals(maxI/i, wins, maxI/10);
+        }
+    }
+
+    @Test
+    void getInfo() {
+        for (int i=0; i<10; i++) {
+            Roller vd = new VariableDice(10);
+            Query svq = new SingleValueQuery(i, vd);
+            assertEquals("Single Value Query: Passes with a single value of " + i, svq.getInfo());
+        }
+    }
+
+    @Test
+    void getAllInfo() {
+        for (int i=0; i<10; i++) {
+            Roller vd = new VariableDice(10);
+            Query svq = new SingleValueQuery(i, vd);
+            String passString = "Single Value Query: Passes with a single value of " + i + "\n" +
+                    "Roller: " + vd.getInfo();
+            assertEquals(passString, svq.getAllInfo());
         }
     }
 

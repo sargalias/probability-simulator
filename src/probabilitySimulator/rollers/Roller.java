@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface Roller {
     int roll();
-    List<Integer> possibleValues();
+    String getInfo();
 }

@@ -9,13 +9,13 @@ import java.util.ArrayList;
 class VariableDiceTest {
 
     @Test
-    void throwsIllegalArgumentExceptionWith0NumValues() {
+    void throwsIllegalArgumentExceptionWith0NumSides() {
         assertThrows(IllegalArgumentException.class,
                 ()->{new VariableDice(0);});
     }
 
     @Test
-    void correctNumValues1to100() {
+    void correctPossibleValues1to100() {
         for (int i=1; i<=100; i++) {
             VariableDice dice = new VariableDice(i);
             List<Integer> expected = new ArrayList<Integer>();
@@ -39,7 +39,7 @@ class VariableDiceTest {
     }
 
     @Test
-    void fullRangeOfRollsNumValues1To15() {
+    void fullRangeOfRollsNumSides1To15() {
         int maxI = 1000000;
         for (int i=1; i<=15; i++) {
             Roller dice = new VariableDice(i);
@@ -56,7 +56,7 @@ class VariableDiceTest {
     }
 
     @Test
-    void rollDistributionWithin10PercentNumvalues1To10() {
+    void rollDistributionWithin10PercentNumSides1To10() {
         int maxI = 1000000;
         for (int i=1; i<=10; i++) {
             int[] rolls = new int[i];
@@ -68,6 +68,14 @@ class VariableDiceTest {
             for (int k=0; k<i; k++) {
                 assertEquals(maxI/i, rolls[k], maxI * 0.1);
             }
+        }
+    }
+
+    @Test
+    void get_info_correct_result() {
+        for (int i=1; i<=100; i++) {
+            VariableDice dice = new VariableDice(i);
+            assertEquals("Rolls range from 0 to " + (i-1), dice.getInfo());
         }
     }
 }
