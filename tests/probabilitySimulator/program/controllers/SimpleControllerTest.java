@@ -49,9 +49,6 @@ public class SimpleControllerTest {
         verify(mockStatistics).statistics(results);
     }
 
-    // Statistics should:
-        // Return correct statistics
-        // Call method statistics of statistics module.
     @Test
     void method_statistics_calls_method_statistics_of_statistics_module() {
         Runner mockRunner = mock(Runner.class);
