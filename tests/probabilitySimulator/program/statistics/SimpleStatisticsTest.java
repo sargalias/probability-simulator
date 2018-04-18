@@ -16,9 +16,22 @@ class SimpleStatisticsTest {
     }
 
     @Test
-    void statistics_called_with_null_returns_0() {
+    void statistics_called_with_null_throws_illegal_argument_exception() {
         SimpleStatistics ss = new SimpleStatistics();
-        assertEquals(correctString("0", "0", "0", "0.00"), ss.statistics(null));
+        assertThrows(IllegalArgumentException.class, () -> {ss.statistics(null);});
+    }
+
+    @Test
+    void statistics_called_with_true_or_false_null_throws_illegal_argument_exception() {
+        SimpleStatistics ss = new SimpleStatistics();
+        Map<Boolean, Integer> results = new HashMap<Boolean, Integer>();
+        results.put(true, null);
+        results.put(false, 0);
+        assertThrows(IllegalArgumentException.class, () -> {ss.statistics(results);});
+
+        results.put(true, 0);
+        results.put(false, null);
+        assertThrows(IllegalArgumentException.class, () -> {ss.statistics(results);});
     }
 
     @Test

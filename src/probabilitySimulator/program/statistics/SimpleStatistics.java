@@ -5,13 +5,10 @@ import java.util.HashMap;
 
 public class SimpleStatistics implements Statistics {
 
-    private Map<Boolean, Integer> normalizeNullResults(Map<Boolean, Integer> results) {
-        if (results == null) {
-            results = new HashMap<Boolean, Integer>();
-            results.put(true, 0);
-            results.put(false, 0);
+    private void checkResultFormat(Map<Boolean, Integer> results) throws IllegalArgumentException{
+        if (results == null || results.get(true) == null || results.get(false) == null) {
+            throw new IllegalArgumentException("Results cannot be null.");
         }
-        return results;
     }
 
     private String chanceString(Map<Boolean, Integer> results) {
@@ -26,16 +23,25 @@ public class SimpleStatistics implements Statistics {
         return chanceStr;
     }
 
-    @Override
-    public String statistics(Map<Boolean, Integer> results) {
-        results = normalizeNullResults(results);
-        int total = results.get(true) + results.get(false);
-        String chanceStr = chanceString(results);
-        String result = "" +
-                "Pass: " + results.get(true) + "\n" +
-                "Fail: " + results.get(false) + "\n" +
+    private String buildString(int pass, int fail, int total, String chanceStr) {
+        return "Pass: " + pass + "\n" +
+                "Fail: " + fail + "\n" +
                 "Total rolls: " + total + "\n"+
                 "Success chance: " + chanceStr + "%";
-        return result;
+    }
+
+    @Override
+    public String statistics(Map<Boolean, Integer> results) throws IllegalArgumentException {
+        try {
+            checkResultFormat(results);
+        } catch (IllegalArgumentException e) {
+            throw e;
+        }
+
+        int pass = results.get(true);
+        int fail = results.get(false);
+        int total = pass + fail;
+        String chanceStr = chanceString(results);
+        return buildString(pass, fail, total, chanceStr);
     }
 }
